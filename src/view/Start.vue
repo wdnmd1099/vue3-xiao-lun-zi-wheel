@@ -1,26 +1,32 @@
 <template>
     <div>
-        <NavBar />
-        <div class="list">
-            <div>
-                <h2 class="document">文档</h2>
-                <ol class="addTopPadding">
-                    <li><router-link to="/start/introduction">介绍</router-link></li>
-                    <li><router-link to="/start/install">安装</router-link></li>
-                    <li><router-link to="/start/comming">开始</router-link></li>
-                </ol>
-            </div>
-            <div>
-                <h2>组件列表</h2>
-                <ol class="addTopPadding">
-                    <li><router-link to="/start/switch">switch</router-link></li>
-                    <li><router-link to="/start/button">button</router-link></li>
-                    <li><router-link to="/start/dialog">dialog</router-link></li>
-                </ol>
+        <NavBar class="nav" />
+        <div class="wrapper">
+            <div class="list">
+                <div>
+                    <h2 class="document">文档</h2>
+                    <ol class="addTopPadding">
+                        <li><router-link to="/start/introduction">介绍</router-link></li>
+                        <li><router-link to="/start/install">安装</router-link></li>
+                        <li><router-link to="/start/comming">开始</router-link></li>
+                    </ol>
+                </div>
+                <div>
+                    <h2>组件列表</h2>
+                    <ol class="addTopPadding">
+                        <li><router-link to="/start/switch">switch</router-link></li>
+                        <li><router-link to="/start/button">button</router-link></li>
+                        <li><router-link to="/start/dialog">dialog</router-link></li>
+                    </ol>
+                </div>
             </div>
         </div>
+    </div>
+    <div class="view">
         <main><router-view /></main>
     </div>
+   
+
 </template>
    
 <script>
@@ -36,11 +42,28 @@ export default {
 
 
 <style lang="scss">
+.nav{
+    position: fixed;
+}
+
+.view{
+    // border: 1px solid red;
+    position: relative;
+    top:80px;
+    left: 160px;
+    z-index: 1;
+    height: calc(100vh - 80px);
+    width: calc(100vw - 176px );
+    overflow: auto;
+}
+
 .list {
-    border-right: 1px solid rgba(122, 121, 121, 0.5);
+    position: fixed;
+    // border: 1px solid red;
     padding-left: 16px;
     width: 150px;
-    height: 100vh;
+    top:70px;
+    
     font-size: 0.8em;
 
     .document {
@@ -58,7 +81,7 @@ export default {
             }
 
             .router-link-active {
-                background: rgba(0,0,0,0);
+                background: rgba(0, 0, 0, 0);
             }
         }
     }
