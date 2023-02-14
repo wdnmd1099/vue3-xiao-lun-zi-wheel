@@ -59,12 +59,13 @@ export default {
 
 .list {
     position: fixed;
-    // border: 1px solid red;
+    border-right: 1px solid rgba(204, 204, 204);
     padding-left: 16px;
     width: 150px;
+    height: 100vh;
     top:70px;
     
-    font-size: 0.8em;
+    font-size: 1.2em;
 
     .document {
         padding-top: 8px;
