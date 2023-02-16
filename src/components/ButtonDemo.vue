@@ -29,7 +29,7 @@
 
     <div>
         <Button loading>按钮</Button>
-        <Button loading="false">加载完毕</Button>
+        <Button :loading="false">加载完毕</Button>
     </div>
 </template>
 

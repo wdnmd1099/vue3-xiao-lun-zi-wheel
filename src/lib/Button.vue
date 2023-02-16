@@ -8,10 +8,11 @@
 
 <script lang="ts">
 
+
 import { PropType, ref } from 'vue';
 type buttonName = 'primary' | 'success' | 'warning' | 'info' | 'danger' | 'none'
 type buttonSize = 'small' | 'normal' | 'large'
-type buttonTheme = 'normal' | 'link' | 'text' 
+type buttonTheme = 'normal' | 'link' | 'text'
 export default {
     props: {
         text: { type: String, required: false },
@@ -29,15 +30,23 @@ export default {
 </script>
 
 <style lang="scss" >
-$blue:rgb(90, 181, 255);
+$blue: rgb(90, 181, 255);
+
 .btn {
     border: none;
     cursor: pointer;
-    padding: 6px 12px;
+    padding: 0px 12px;
     border-radius: 4px;
     color: white;
     font-size: 15px;
     font-weight: 600;
+    box-sizing: border-box;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    outline: none;
+
 
     &.Type-primary {
         background: rgb(64, 158, 255);
@@ -67,14 +76,17 @@ $blue:rgb(90, 181, 255);
 
     &.Size-small {
         font-size: 12px;
+        height: 22px;
     }
 
     &.Size-normal {
         font-size: 16px;
+        height: 30px;
     }
 
     &.Size-large {
         font-size: 24px;
+        height: 48px;
     }
 
     &.Theme-normal {
@@ -136,6 +148,7 @@ $blue:rgb(90, 181, 255);
     &.OnLoading-true {
         opacity: 1;
     }
+
     &.OnLoading-false {
         opacity: 1;
     }
