@@ -35,7 +35,7 @@ $blue: rgb(90, 181, 255);
 .btn {
     border: none;
     cursor: pointer;
-    padding: 0px 12px;
+    padding: 0px 14px;
     border-radius: 4px;
     color: white;
     font-size: 15px;
@@ -76,17 +76,17 @@ $blue: rgb(90, 181, 255);
 
     &.Size-small {
         font-size: 12px;
-        height: 22px;
+        height: 24px;
     }
 
     &.Size-normal {
         font-size: 16px;
-        height: 30px;
+        height: 38px;
     }
 
     &.Size-large {
         font-size: 24px;
-        height: 48px;
+        height: 58px;
     }
 
     &.Theme-normal {
@@ -142,7 +142,6 @@ $blue: rgb(90, 181, 255);
 
     &[disabled] {
         opacity: 0.5;
-        // border: 4px solid red;
     }
 
     &.OnLoading-true {

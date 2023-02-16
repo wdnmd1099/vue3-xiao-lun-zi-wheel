@@ -9,7 +9,7 @@
         <div class="title">
             <h1>小轮子UI</h1>
         </div>
-        
+
 
         <div class="HomeText">
             <h4>木直中绳，輮以为轮，其曲中规</h4>
@@ -17,8 +17,8 @@
         </div>
 
         <div class="HomeButtons">
-            <Button size="large" class="github"><a href="" class="noUnderline">Github</a></Button>
-            <Button size="large" class="github"><router-link to="/start">开始</router-link> </Button>
+            <Button class="github"><a href="https://github.com/wdnmd1099/vue3-xiao-lun-zi-wheel" class="noUnderline">Github</a></Button>
+            <Button class="github"><router-link to="/start">开始</router-link> </Button>
         </div>
 
 
@@ -49,15 +49,16 @@
         </div>
 
 
-    </div>
+</div>
 </template>
   
 <script>
+
 import NavBar from '../components/NavBar.vue';
 import Button from '../lib/Button.vue';
 
 export default {
-    components:{
+    components: {
         NavBar,
         Button,
     },
@@ -65,12 +66,15 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
-.github{
+<style lang="scss">
+.github {
     margin-right: 20px;
-    .noUnderline{
-    text-decoration: none;
-}
+    a {
+        text-decoration: none;
+    }
+    .router-link-active {
+        text-decoration: none;
+    }
 }
 
 .HomeLogo {
@@ -84,7 +88,8 @@ export default {
         width: 300px;
     }
 }
-.title{
+
+.title {
     margin-top: 35px;
     display: flex;
     justify-content: center;
@@ -164,5 +169,4 @@ export default {
             }
         }
     }
-}
-</style>
+}</style>
