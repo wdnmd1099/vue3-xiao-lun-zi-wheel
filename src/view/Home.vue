@@ -17,8 +17,8 @@
         </div>
 
         <div class="HomeButtons">
-            <button>GitHub</button>
-            <button>开始</button>
+            <Button size="large" class="github"><a href="" class="noUnderline">Github</a></Button>
+            <Button size="large" class="github"><router-link to="/start">开始</router-link> </Button>
         </div>
 
 
@@ -54,15 +54,25 @@
   
 <script>
 import NavBar from '../components/NavBar.vue';
+import Button from '../lib/Button.vue';
+
 export default {
     components:{
-        NavBar
+        NavBar,
+        Button,
     },
 }
 </script>
 
 
 <style lang="scss" scoped>
+.github{
+    margin-right: 20px;
+    .noUnderline{
+    text-decoration: none;
+}
+}
+
 .HomeLogo {
     display: flex;
     justify-content: center;
