@@ -1,82 +1,152 @@
 <template>
-    <button class="switch" @click="toggle" :class="[{checked:yesOrNo},{canNotClick}]">
-        <span></span>
-    </button>
+    <button class="btn" :class="[['Type-' + type], ['Size-' + size], ['Theme-' + theme], ['OnLoading-' + loading]]"
+        :disabled="disabled">
+        <span v-if="loading" class="loadingSpin"></span>
+        <slot />
+</button>
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
 
+import { PropType, ref } from 'vue';
+type buttonName = 'primary' | 'success' | 'warning' | 'info' | 'danger' | 'none'
+type buttonSize = 'small' | 'normal' | 'large'
+type buttonTheme = 'normal' | 'link' | 'text' 
 export default {
     props: {
-        yesOrNo: { type: Boolean },
-        notClick: { type: Boolean, required: false }, //是否必填
+        text: { type: String, required: false },
+        type: { type: String as PropType<buttonName>, default: 'none' },
+        size: { type: String as PropType<buttonSize>, default: 'normal' },
+        theme: { type: String as PropType<buttonTheme> },
+        disabled: { type: Boolean, default: false },
+        loading: { type: Boolean, default: undefined },
     },
     setup(props, context) {
-        const checked = ref(false)
-        const canNotClick = ref(false)
-        const toggle = () => {
-            context.emit('update:yesOrNo', !props.yesOrNo)
-            if(props.notClick === true){
-                canNotClick.value = true
-                setTimeout(() => {
-                    canNotClick.value = false
-                }, 100);
-            }
-        }
-        return { checked, toggle, canNotClick}
+        console.log(props.size, props.text, props.type)
+        // const x =  context.slots?.default?.()[0].children //然后return ｛x｝ 这个x就是button的名字
     }
 }
 </script>
 
 <style lang="scss" >
-@keyframes walk {
-    0% {
-        left: 0;
+$blue:rgb(90, 181, 255);
+.btn {
+    border: none;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+
+    &.Type-primary {
+        background: rgb(64, 158, 255);
     }
 
-    50% {
-        left: 2px;
+    &.Type-success {
+        background: rgb(103, 194, 58);
+    }
+
+    &.Type-warning {
+        background: rgb(230, 162, 60);
+    }
+
+    &.Type-info {
+        background: rgb(144, 147, 153);
+    }
+
+    &.Type-danger {
+        background: rgb(245, 108, 108);
+    }
+
+    &.Type-none {
+        background: white;
+        border: 1px solid rgba(144, 147, 153, 0.7);
+        color: black;
+    }
+
+    &.Size-small {
+        font-size: 12px;
+    }
+
+    &.Size-normal {
+        font-size: 16px;
+    }
+
+    &.Size-large {
+        font-size: 24px;
+    }
+
+    &.Theme-normal {
+        background: rgb(240, 240, 240);
+        border: none;
+    }
+
+    &.Theme-link {
+        background: rgba(240, 240, 240, 0);
+        border: none;
+        text-decoration: underline;
+        color: rgb(64, 169, 255);
+    }
+
+    &.Theme-text {
+        // background: rgba(240, 240, 240,0);
+        border: none;
+    }
+
+    &[disabled] {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+
+    &.OnLoading-true {
+        .loadingSpin {
+            border: 1px solid red;
+            width: 14px;
+            height: 14px;
+            display: inline-block;
+            margin-right: 4px;
+            border-radius: 50%;
+            border-color: $blue $blue $blue transparent;
+            border-style: solid;
+            border-width: 2px;
+            animation: spin 1s infinite linear;
+        }
+
+    }
+
+}
+
+.btn:hover {
+    opacity: 0.7;
+
+    &.Theme-normal {
+        opacity: 1;
+    }
+
+    &.Theme-text {
+        background: rgba(242, 242, 242, 1);
+    }
+
+    &[disabled] {
+        opacity: 0.5;
+        // border: 4px solid red;
+    }
+
+    &.OnLoading-true {
+        opacity: 1;
+    }
+    &.OnLoading-false {
+        opacity: 1;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
     }
 
     100% {
-        left: 0;
+        transform: rotate(360deg);
     }
-}
-
-.switch {
-    height: 22px;
-    width: 44px;
-    border-radius: 32px;
-    border: 1px solid rgba(0, 0, 0, 0);
-    background: rgb(24, 144, 255);
-    background: grey;
-    position: relative;
-
-    >span {
-        position: absolute;
-        height: 20px;
-        width: 20px;
-        border-radius: 50%;
-        top: 0;
-        left: 0;
-        background: white;
-        transition: all 0.25s;
-    }
-
-    &.checked {
-        background: rgb(24, 144, 255);
-
-        >span {
-            left: 22px;
-        }
-    }
-
-    &.canNotClick {
-        >span {
-            animation: walk 0.1s linear 1 alternate both;
-        }
-
-    }
-}
-</style>
+}</style>
