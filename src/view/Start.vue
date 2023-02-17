@@ -17,6 +17,8 @@
                         <li><router-link to="/start/switch">switch</router-link></li>
                         <li><router-link to="/start/button">button</router-link></li>
                         <li><router-link to="/start/dialog">dialog</router-link></li>
+                        <li><router-link to="/start/tabs">tabs</router-link></li>
+                        <li><router-link to="/start/datePicker">datePicker</router-link></li>
                     </ol>
                 </div>
             </div>

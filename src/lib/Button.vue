@@ -23,7 +23,6 @@ export default {
         loading: { type: Boolean, default: undefined },
     },
     setup(props, context) {
-        console.log(props.size, props.text, props.type)
         // const x =  context.slots?.default?.()[0].children //然后return ｛x｝ 这个x就是button的名字
     }
 }
@@ -161,4 +160,5 @@ $blue: rgb(90, 181, 255);
     100% {
         transform: rotate(360deg);
     }
-}</style>
+}
+</style>
