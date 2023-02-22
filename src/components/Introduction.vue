@@ -10,7 +10,7 @@
         这款组件库其实是我为了总结自己的技术经验而写的，全程亲手编写，尽量不采用第三方库，包括你现在看到的这个官网也几乎都是我自己写的。
       </p>
       <p>
-        所以如果强烈不建议你将此 UI库用于生产环境
+        所以完全不建议你将此 UI库用于生产环境
         ，源码放在了<a href="https://github.com/wdnmd1099/vue3-xiao-lun-zi-wheel">https://github.com/wdnmd1099/vue3-xiao-lun-zi-wheel</a>
         ，你也可以直接查看每个组件的源代码和示例，运行方法见 README.md。
       </p>
