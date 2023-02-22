@@ -1,5 +1,5 @@
 <template>
-    <div class="test">
+    <div class="test markdown-body">
       <p>这是介绍的页面</p>
       <p>这是介绍的页面</p>
       <p>这是介绍的页面</p>

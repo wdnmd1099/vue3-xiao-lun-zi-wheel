@@ -3,7 +3,7 @@ import App from './App.vue'
 import './index.scss'
 import './assets/svg.js'
 import { router } from './router'
-
+import 'github-markdown-css' 
 
 
 
