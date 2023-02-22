@@ -53,8 +53,8 @@ export default {
     left: 160px;
     z-index: 1;
     height: calc(100vh - 80px);
-    width: calc(100vw - 176px);
-    overflow: auto;
+    width: calc(100vw - 177px);
+    // overflow: auto;
 }
 
 .list {
