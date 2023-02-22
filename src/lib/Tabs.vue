@@ -1,14 +1,17 @@
 <template>
     <div class="tabs">
         <div class="tabs-nav" ref="container">
-            <div class="tabs-nav-item" v-for="(t, index) in titles"
+            <div class="tabs-nav-item" v-for="(t, index) in titles" :key="index"
                 :ref="(el) => { if (t === selected) selectedItem = el }" @click="select(t)"
-                :class="{ selected: t === selected }" :key="index">{{ t }}</div>
+                :class="{ selected: t === selected }" 
+                >{{ t }}</div>
+                <!-- <div> t 是当前的tag组件实例的 title  </div> -->
             <div class="tabs-nav-indicator" ref="indicator"></div>
         </div>
         <div class="tabs-content">
             <component :is="current" :key="current.props.title" />
         </div>
+        
     </div>
 </template>
   
@@ -30,9 +33,9 @@ const emit = defineEmits<{
     (e: 'update:selected', title: string): void;
 }>()
 
-const selectedItem = ref(null)
-const indicator = ref(null)
-const container = ref(null)
+const selectedItem = ref(null)  //当前选中的导航
+const indicator = ref(null)     //导航下面蓝色的指示条
+const container = ref(null)     
 
 onMounted(() => {
     watchEffect(() => {
@@ -40,13 +43,13 @@ onMounted(() => {
             width
         } = selectedItem.value.getBoundingClientRect()
         indicator.value.style.width = width + 'px'
-        const {
-            left: left1
+        const {  
+            left: left1  //析构赋值的重命名方式 否则将写成 container.value.getBoundingClientRect().left
         } = container.value.getBoundingClientRect()
         const {
             left: left2
         } = selectedItem.value.getBoundingClientRect()
-        const left = left2 - left1
+        const left = left2 - left1   // 用当前选中导航的left 减去 容器的left  就等于蓝色指示条应该处于的left位置
         indicator.value.style.left = left + 'px'
     }, {
         flush: 'post'
@@ -68,6 +71,7 @@ const titles = defaults.map((tag) => {
     return tag.props.title
 })
 const select = (title: string) => {
+    //click 把当前tag 的title 传进来，然后emit 回去，那样t === select 就会绑定 class = selected 然后css做动画就行了
     emit('update:selected', title)
 }
 </script>
