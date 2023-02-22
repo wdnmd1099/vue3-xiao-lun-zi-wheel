@@ -6,13 +6,13 @@
                 打开终端运行下列命令:
             </p>
 
-            <pre>npm install ls-ui</pre>
+            <pre>npm install XXXXXXXXXXXXXXXX</pre>
             <p>
                 或
             </p>
-            <pre>yarn add ls-ui</pre>
+            <pre>yarn add XXXXXXXXXXXXXXXX</pre>
             <p>
-                下一步：<router-link to="/start/install">安装</router-link>
+                下一步：<router-link to="/start/comming">开始</router-link>
             </p>
         </div>
 
