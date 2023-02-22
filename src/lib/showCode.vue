@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="test">
 
         <div class="showTitle">
             {{ title }}
@@ -96,5 +96,8 @@ $gray: rgb(128, 128, 128, 0.3);
     &.cantVisible {
         display: none;
     }
+}
+.test{
+    padding-top: 25px;
 }
 </style>
