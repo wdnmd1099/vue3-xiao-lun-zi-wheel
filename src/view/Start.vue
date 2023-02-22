@@ -27,8 +27,6 @@
     <div class="view">
         <main><router-view /></main>
     </div>
-   
-
 </template>
    
 <script>
@@ -44,49 +42,77 @@ export default {
 
 
 <style lang="scss">
-.nav{
+.nav {
     position: fixed;
 }
 
-.view{
+.view {
     // border: 1px solid red;
     position: relative;
-    top:80px;
+    top: 80px;
     left: 160px;
     z-index: 1;
     height: calc(100vh - 80px);
-    width: calc(100vw - 176px );
+    width: calc(100vw - 176px);
     overflow: auto;
 }
 
 .list {
     position: fixed;
     border-right: 1px solid rgba(204, 204, 204);
-    padding-left: 16px;
+    // padding-left: 16px;
     width: 150px;
     height: 100vh;
-    top:70px;
-    
+    top: 70px;
+
     font-size: 1.2em;
 
     .document {
         padding-top: 8px;
     }
 
+    h2 {
+        padding-left: 16px;
+    }
+
     ol {
         >li {
-            padding-top: 8px;
-            padding-bottom: 8px;
-
             >a {
+                padding-top: 8px;
+                padding-bottom: 8px;
+                padding-left: 16px;
                 display: block;
                 text-decoration: none;
             }
 
             .router-link-active {
-                background: rgba(0, 0, 0, 0);
+                background: rgba(167, 210, 229, 0.4);
+                transform: all 250ms;
+                position: relative;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: 0px;
+                    right: 0;
+                    width: 3px;
+                    height: 100%;
+                    background-color: rgb(107, 201, 241);
+                    animation: asideCurrent 300ms ease-in-out;
+                }
             }
         }
+    }
+}
+
+
+@keyframes asideCurrent {
+    from {
+        transform: scaleY(0);
+    }
+
+    to {
+        transform: scaleY(1);
     }
 }
 </style>
