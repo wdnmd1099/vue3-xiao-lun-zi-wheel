@@ -1,4 +1,5 @@
 <template>
+    <h1 class="intro">Button按钮</h1>
     <showCode title="基础用法" path="../markdown/Button/ButtonDemo1.md">
         <div class="Demo-padding-right">
             <Button type="primary">按钮</Button>
@@ -60,7 +61,7 @@ export default {
 
 <style lang="scss">
 .ButtonDemo {
-    margin-top: 25px;
+    // margin-top: 25px;
 
 }
 
@@ -68,5 +69,9 @@ export default {
     >Button {
         margin-right: 16px;
     }
+}
+.intro{
+    padding-top: 20px;
+    padding-bottom: 4px;
 }
 </style>
