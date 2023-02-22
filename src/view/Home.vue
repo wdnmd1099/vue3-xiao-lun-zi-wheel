@@ -17,8 +17,8 @@
         </div>
 
         <div class="HomeButtons">
-            <Button class="github"><a href="https://github.com/wdnmd1099/vue3-xiao-lun-zi-wheel" class="noUnderline">Github</a></Button>
-            <Button class="github"><router-link to="/start">开始</router-link> </Button>
+            <Button class="github"><a href="https://github.com/wdnmd1099/vue3-xiao-lun-zi-wheel" target="_blank" class="noUnderline">Github</a></Button>
+            <Button class="github1"><router-link to="/start">开始</router-link> </Button>
         </div>
 
 
@@ -69,13 +69,33 @@ export default {
 <style lang="scss">
 .github {
     margin-right: 20px;
+    height: 36px;
+    width: 82px;
+    z-index: 1;
     a {
+        z-index: 2;
         text-decoration: none;
+        padding: 8px 14px;
     }
     .router-link-active {
         text-decoration: none;
     }
 }
+.github1 {
+    margin-right: 20px;
+    height: 36px;
+    width: 82px;
+    z-index: 1;
+    a {
+        z-index: 2;
+        text-decoration: none;
+        padding: 8px 24px;
+    }
+    .router-link-active {
+        text-decoration: none;
+    }
+}
+
 
 .HomeLogo {
     display: flex;
