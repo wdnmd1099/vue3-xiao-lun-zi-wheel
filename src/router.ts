@@ -5,7 +5,8 @@ import Introduction from './components/Introduction.vue'
 import SwitchDemo from './components/SwitchDemo.vue'
 import Button from './components/ButtonDemo.vue'
 import TabsDemo from './components/TabsDemo.vue'
-
+import Install from './components/install.vue'
+import Comming from './components/Document-start.vue'
 const history = createWebHashHistory()
 export const router = createRouter({
     history: history,
@@ -16,8 +17,8 @@ export const router = createRouter({
             children:[
                 { path: "", redirect: '/start/introduction' },
                 { path: 'introduction', component: Introduction },
-                { path: 'install', component: Start },
-                { path: 'comming', component: Start },
+                { path: 'install', component: Install },
+                { path: 'comming', component: Comming },
                 { path: 'switch', component: SwitchDemo },
                 { path: 'button', component: Button },
                 { path: 'dialog', component: Start },
