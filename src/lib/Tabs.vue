@@ -3,19 +3,21 @@
         <div class="tabs-nav" ref="container">
             <div class="tabs-nav-item" v-for="(t, index) in titles" :key="index"
                 :ref="(el) => { if (t === selected) selectedItem = el }" @click="select(t)"
-                :class="{ selected: t === selected }" 
-                >{{ t }}</div>
-                <!-- <div> t 是当前的tag组件实例的 title  </div> -->
+                :class="{ selected: t === selected }">{{ t }}</div>
+            <!-- <div> t 是当前的tag组件实例的 title   el是当前导航在页面的html元素 </div> -->
             <div class="tabs-nav-indicator" ref="indicator"></div>
         </div>
         <div class="tabs-content">
             <component :is="current" :key="current.props.title" />
         </div>
-        
+
     </div>
 </template>
   
 <script lang="ts" setup="props, context">
+// 思路：v-for 遍历 tab（导航） ，给每个tab 加上一个onclick，点击tab 时把该tab的标题 emit 给tab，实现选中导航
+// defaults 是tabs里面的所有内容 ， 去defaults 找到当前tab的内容，通过component 展示到页面，实现选中相应的导航展示相应的内容
+// component 的 key 要更新才能让component 知道自己的数据更新了，否则页面就不动了而导致bug
 import Tab from './Tab.vue'
 import {
     computed,
@@ -25,7 +27,6 @@ import {
     useSlots
 } from 'vue'
 
-/** References: https://vitejs.dev/guide/features.html#typescript */
 import type { Component } from 'vue'
 
 const props = defineProps<{ selected: string }>()
@@ -35,7 +36,7 @@ const emit = defineEmits<{
 
 const selectedItem = ref(null)  //当前选中的导航
 const indicator = ref(null)     //导航下面蓝色的指示条
-const container = ref(null)     
+const container = ref(null)
 
 onMounted(() => {
     watchEffect(() => {
@@ -43,7 +44,7 @@ onMounted(() => {
             width
         } = selectedItem.value.getBoundingClientRect()
         indicator.value.style.width = width + 'px'
-        const {  
+        const {
             left: left1  //析构赋值的重命名方式 否则将写成 container.value.getBoundingClientRect().left
         } = container.value.getBoundingClientRect()
         const {
