@@ -14,7 +14,7 @@
         <div class="code" :class="{ cantVisible: canNotVisible === false }">
             <article class="markdown-body">
                 <pre v-html="x"></pre>
-             </article>>
+             </article>
            
         </div>
     </div>
