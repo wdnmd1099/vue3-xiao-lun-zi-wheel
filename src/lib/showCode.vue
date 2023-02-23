@@ -40,9 +40,10 @@ export default {
         }
         let x = ref('');
         const Prism = window.Prism
-        console.log(Prism)
+
         if (props.path) {
-            import(props.path).then((a) => { 
+            import(/* @vite-ignore */props.path).then((a) => { 
+                // import 加入 /* @vite-ignore */ 消除终端警告 https://blog.csdn.net/qq_29733191/article/details/123858460
                 x.value = Prism.highlight(a.default,Prism.languages.html,'html')
                 })
         }
