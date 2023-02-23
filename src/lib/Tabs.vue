@@ -53,7 +53,7 @@ onMounted(() => {
         const left = left2 - left1   // 用当前选中导航的left 减去 容器的left  就等于蓝色指示条应该处于的left位置
         indicator.value.style.left = left + 'px'
     }, {
-        flush: 'post'
+        flush: 'post' //watchEffect 的参数
     })
 })
 
