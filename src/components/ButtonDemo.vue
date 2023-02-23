@@ -8,8 +8,8 @@
             <Button type="info">按钮</Button>
             <Button type="danger">按钮</Button>
         </div>
-
     </showCode>
+    
     <showCode title="基础用法" path="../markdown/Button/ButtonDemo2.md" class="ButtonDemo">
         <div class="Demo-padding-right">
             <Button size="small">Small</Button>
