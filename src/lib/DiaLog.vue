@@ -1,37 +1,54 @@
 <template>
-    <Teleport to='body'>
-        <div class="overlay"></div>
-        <div class="dialogWrapper" >
-            <div class="toolWrapper">
-                <header class="title">标题</header>
-                <main class="msg">
-                    生活就像海洋,只有意志坚强的人,才能到达彼岸
-                </main>
-                <footer class="buttons">
-                    <Button type='primary' class="b1 button">OK</Button>
-                    <Button class="b2 button">Cancel</Button>
-                </footer>
+        <Teleport to='body'>
+            <div class="overlay" :class="{ none: okOrNot === false }"></div>
+            <div class="dialogWrapper" :class="{ none: okOrNot === false }">
+                <div class="toolWrapper">
+                    <header class="title">{{ title }}</header>
+                    <main class="msg">
+                        <slot/>
+                    </main>
+                    <footer class="buttons">
+                        <Button type='primary' class="b1 button" @click="btnClick()">OK</Button>
+                        <Button class="b2 button" @click="btnClick()">Cancel</Button>
+                    </footer>
+                </div>
             </div>
-        </div>
-    </Teleport>
+        </Teleport>
 </template>
     
 <script lang="ts">
+import { ref, watch } from 'vue';
 import Button from '../lib/Button.vue';
 
 export default {
-    components:{
+    components: {
         Button,
     },
-    props:{
-        visible:{ type:Boolean } 
-        
+    props: {
+        visible: { type: Boolean },
+        title:   { type: String },
     },
+    setup(props, context) {
+        const okOrNot = ref(false)
+        watch(() => [props.visible], () => {
+            if (props.visible === true) {
+                okOrNot.value = true
+                context.emit('update:visible', !okOrNot.value)
+            }
+        })
+
+        const btnClick = () => {
+            okOrNot.value = false
+        }
+        return { okOrNot, btnClick }
+    }
 }
 </script>
 
 
 <style lang="scss">
+.dialogOutsideWrapper {}
+
 .overlay {
     display: flex;
     justify-content: center;
@@ -43,6 +60,10 @@ export default {
     left: 0;
     top: 0;
     z-index: 99;
+
+    &.none {
+        display: none;
+    }
 }
 
 .dialogWrapper {
@@ -55,6 +76,10 @@ export default {
     position: fixed;
     border: 1px solid red;
     top: 0;
+
+    &.none {
+        display: none;
+    }
 }
 
 
@@ -66,6 +91,7 @@ export default {
     min-width: 250px;
     min-height: 150px;
     max-width: 500px;
+
     >.title {
         border-bottom: 1px solid rgb(217, 217, 217);
         padding: 12px 16px;
@@ -73,20 +99,24 @@ export default {
         font-size: 20px;
         margin: 0;
     }
-    >.msg{
+
+    >.msg {
         border-bottom: 1px solid rgb(217, 217, 217);
         padding: 12px 16px;
         // word-wrap: break-word;
     }
-    >.buttons{
+
+    >.buttons {
         padding: 12px 16px;
         display: flex;
         justify-content: end;
-        >.button{
+
+        >.button {
             height: 32px;
             font-size: small;
         }
-        >.b2{
+
+        >.b2 {
             margin-left: 14px;
         }
     }

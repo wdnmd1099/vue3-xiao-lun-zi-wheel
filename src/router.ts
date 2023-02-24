@@ -8,7 +8,7 @@ import TabsDemo from './components/TabsDemo.vue'
 import Install from './components/install.vue'
 import Comming from './components/Document-start.vue'
 import DatePicker from './lib/datePicker.vue'
-import DiaLog from './lib/DiaLog.vue'
+import DiaLogDemo from './components/diaLogDemo.vue'
 
 
 const history = createWebHashHistory()
@@ -25,7 +25,7 @@ export const router = createRouter({
                 { path: 'comming', component: Comming },
                 { path: 'switch', component: SwitchDemo },
                 { path: 'button', component: Button },
-                { path: 'dialog', component: DiaLog },
+                { path: 'dialog', component: DiaLogDemo },
                 { path: 'tabs', component: TabsDemo },
                 { path: 'DatePicker', component: DatePicker },
             ],

@@ -1,6 +1,5 @@
 <template>
     <div class="test">
-
         <div class="showTitle">
             {{ title }}
         </div>
@@ -31,7 +30,7 @@ export default {
     },
     props: {
         title: { type: String },
-        path: { type: String, required: true },
+        path: { type: String, required: false },
     },
     setup(props, context) {
         const canNotVisible = ref(false)
@@ -47,8 +46,6 @@ export default {
                 x.value = Prism.highlight(a.default,Prism.languages.html,'html')
                 })
         }
-        
-
         return { canNotVisible, showClick, x }
     }
 }
