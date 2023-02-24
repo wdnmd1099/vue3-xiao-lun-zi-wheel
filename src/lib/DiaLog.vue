@@ -1,29 +1,28 @@
 <template>
     <div>
         <Teleport to='body'>
-            <!-- <div class="overlay" :class="{ none: okOrNot === false }"></div> -->
-        </Teleport>
-        <div class="dialogWrapper" :class="{ none: okOrNot === false }">
-            <div class="toolWrapper">
-                <header class="title" :class="{ hiddenHere: !title }">
-                    {{ title }}
-                </header>
-                <header class="title" :class="{ hiddenHere: title }">
-                    <slot name="title" />
-                </header>
-                <main class="msg" :class="{ hiddenHere: diyMsg === false }">
-                    <slot name="msg" />
-                </main>
-                <main class="msg" :class="{ hiddenHere: diyMsg === true }">
-                    <slot />
-                </main>
-                <footer class="buttons">
-                    <Button type='primary' class="b1 button" @click="btnClick()">OK</Button>
-                    <Button class="b2 button" @click="btnClick()">Cancel</Button>
-                </footer>
+            <div class="overlay" :class="{ none: okOrNot === false }"></div>
+            <div class="dialogWrapper" :class="{ none: okOrNot === false }">
+                <div class="toolWrapper">
+                    <header class="title" :class="{ hiddenHere: !title }">
+                        {{ title }}
+                    </header>
+                    <header class="title" :class="{ hiddenHere: title }">
+                        <slot name="title" />
+                    </header>
+                    <main class="msg" :class="{ hiddenHere: diyMsg === false }">
+                        <slot name="msg" />
+                    </main>
+                    <main class="msg" :class="{ hiddenHere: diyMsg === true }">
+                        <slot />
+                    </main>
+                    <footer class="buttons">
+                        <Button type='primary' class="b1 button" @click="btnClick()">OK</Button>
+                        <Button class="b2 button" @click="btnClick()">Cancel</Button>
+                    </footer>
+                </div>
             </div>
-        </div>
-
+        </Teleport>
     </div>
 </template>
     
@@ -59,8 +58,6 @@ export default {
 
 
 <style lang="scss" scoped>
-.dialogOutsideWrapper {}
-
 .overlay {
     display: flex;
     justify-content: center;
