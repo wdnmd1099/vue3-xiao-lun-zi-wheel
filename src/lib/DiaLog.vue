@@ -1,19 +1,30 @@
 <template>
+    <div>
         <Teleport to='body'>
-            <div class="overlay" :class="{ none: okOrNot === false }"></div>
-            <div class="dialogWrapper" :class="{ none: okOrNot === false }">
-                <div class="toolWrapper">
-                    <header class="title">{{ title }}</header>
-                    <main class="msg">
-                        <slot/>
-                    </main>
-                    <footer class="buttons">
-                        <Button type='primary' class="b1 button" @click="btnClick()">OK</Button>
-                        <Button class="b2 button" @click="btnClick()">Cancel</Button>
-                    </footer>
-                </div>
-            </div>
+            <!-- <div class="overlay" :class="{ none: okOrNot === false }"></div> -->
         </Teleport>
+        <div class="dialogWrapper" :class="{ none: okOrNot === false }">
+            <div class="toolWrapper">
+                <header class="title" :class="{ hiddenHere: !title }">
+                    {{ title }}
+                </header>
+                <header class="title" :class="{ hiddenHere: title }">
+                    <slot name="title" />
+                </header>
+                <main class="msg" :class="{ hiddenHere: diyMsg === false }">
+                    <slot name="msg" />
+                </main>
+                <main class="msg" :class="{ hiddenHere: diyMsg === true }">
+                    <slot />
+                </main>
+                <footer class="buttons">
+                    <Button type='primary' class="b1 button" @click="btnClick()">OK</Button>
+                    <Button class="b2 button" @click="btnClick()">Cancel</Button>
+                </footer>
+            </div>
+        </div>
+
+    </div>
 </template>
     
 <script lang="ts">
@@ -26,7 +37,8 @@ export default {
     },
     props: {
         visible: { type: Boolean },
-        title:   { type: String },
+        title: { type: String },
+        diyMsg: { type: Boolean, default: false },
     },
     setup(props, context) {
         const okOrNot = ref(false)
@@ -46,7 +58,7 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 .dialogOutsideWrapper {}
 
 .overlay {
@@ -98,12 +110,20 @@ export default {
         display: block;
         font-size: 20px;
         margin: 0;
+
+        &.hiddenHere {
+            display: none;
+        }
     }
+
 
     >.msg {
         border-bottom: 1px solid rgb(217, 217, 217);
         padding: 12px 16px;
-        // word-wrap: break-word;
+
+        &.hiddenHere {
+            display: none;
+        }
     }
 
     >.buttons {
