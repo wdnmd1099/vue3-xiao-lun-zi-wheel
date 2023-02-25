@@ -41,4 +41,5 @@ export default {
 .intro{
     padding-top: 20px;
     padding-bottom: 4px;
-}</style>
+}
+</style>

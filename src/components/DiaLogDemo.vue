@@ -1,4 +1,5 @@
 <template>
+    <h1 class="intro">dialog对话框</h1>
     <Demo :diyComponent="D1" title="基础用法" :path="dialogDemo1" />
     <Demo :diyComponent="D2" title="支持自定义内容" :path="dialogDemo2" />
 </template>
@@ -24,4 +25,9 @@ export default {
 </script>
 
 
-<style lang="scss"></style>
+<style lang="scss">
+.intro {
+    padding-top: 20px;
+    padding-bottom: 4px;
+}
+</style>
