@@ -28,7 +28,7 @@
     
 <script lang="ts">
 import { ref, watch } from 'vue';
-import Button from '../lib/Button.vue';
+import Button from './Button.vue';
 
 export default {
     components: {
@@ -46,6 +46,8 @@ export default {
                 okOrNot.value = true
                 context.emit('update:visible', !okOrNot.value)
             }
+        }, {
+            flush: 'post' 
         })
 
         const btnClick = () => {
