@@ -71,7 +71,6 @@ $gray: rgb(128, 128, 128, 0.3);
 
 .showTitle {
     border: 1px solid $gray;
-    // height: 30px;
     font-size: 1.3em;
     padding: 8px 16px;
     display: block;
@@ -80,14 +79,10 @@ $gray: rgb(128, 128, 128, 0.3);
 .showCode {
     border: 1px solid $gray;
     border-top: none;
-    // height: 30px;
     font-size: 1.3em;
     padding: 8px 16px;
     display: block;
 
-    >.showCode-small {
-        // font-size: 1em;
-    }
 }
 
 .code {

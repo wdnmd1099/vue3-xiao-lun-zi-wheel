@@ -83,7 +83,6 @@ export default {
     justify-content: center;
     align-items: center;
     position: fixed;
-    border: 1px solid red;
     top: 0;
 
     &.none {
@@ -95,7 +94,6 @@ export default {
 .toolWrapper {
     flex-direction: column;
     background: white;
-    // border: 1px solid red;
     border-radius: 4px;
     min-width: 250px;
     min-height: 150px;

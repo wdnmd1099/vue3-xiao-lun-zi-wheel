@@ -7,7 +7,6 @@ import Button from './components/ButtonDemo.vue'
 import TabsDemo from './components/TabsDemo.vue'
 import Install from './components/install.vue'
 import Comming from './components/Document-start.vue'
-import DatePicker from './components/DatePickerDemo.vue'
 import DiaLogDemo from './components/diaLogDemo.vue'
 
 
@@ -27,7 +26,6 @@ export const router = createRouter({
                 { path: 'button', component: Button },
                 { path: 'dialog', component: DiaLogDemo },
                 { path: 'tabs', component: TabsDemo },
-                { path: 'DatePicker', component: DatePicker },
             ],
         },
     ]
