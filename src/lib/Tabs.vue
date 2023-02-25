@@ -39,7 +39,7 @@ const indicator = ref(null)     //导航下面蓝色的指示条
 const container = ref(null)
 
 onMounted(() => {
-    watchEffect(() => {
+    watchEffect(() => { // 做导航栏下方的蓝色指示条
         const {
             width
         } = selectedItem.value.getBoundingClientRect()
@@ -57,18 +57,21 @@ onMounted(() => {
     })
 })
 
-const slots = useSlots()
-const defaults = slots.default()
+const slots = useSlots() 
+const defaults = slots.default() // 获取到tabs 里面的所有 tab 元素
+console.log(slots)
+console.log(defaults)
 defaults.forEach((tag) => {
     if ((tag.type as Component).name !== Tab.name) {
         throw new Error('Tabs 子标签必须是 Tab')
     }
 })
 
-const current = computed(() => {
-    return defaults.find(tag => tag.props.title === props.selected)
+const current = computed(() => { //当前导航相应的页面
+    console.log(current)
+    return defaults.find(tag => tag.props.title === props.selected) //在defaults 里找到和当前选择导航的title相同的元素
 })
-const titles = defaults.map((tag) => {
+const titles = defaults.map((tag) => { 
     return tag.props.title
 })
 const select = (title: string) => {

@@ -7,7 +7,7 @@ import Button from './components/ButtonDemo.vue'
 import TabsDemo from './components/TabsDemo.vue'
 import Install from './components/install.vue'
 import Comming from './components/Document-start.vue'
-import DatePicker from './lib/datePicker.vue'
+import DatePicker from './components/DatePickerDemo.vue'
 import DiaLogDemo from './components/diaLogDemo.vue'
 
 

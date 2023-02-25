@@ -4,7 +4,9 @@
             {{ title }}
         </div>
         <div class="showWrapper">
-            <slot />
+           <div :class="{hidden : diyComponent }">   <slot />  </div>
+           <div :class="{hidden : !diyComponent }">  <component :is="diyComponent" /> </div>
+
         </div>
         <div class="showCode">
             <Button size="small" class="showCode-small" @click="showClick()">{{ canNotVisible ===
@@ -31,6 +33,7 @@ export default {
     props: {
         title: { type: String },
         path: { type: String, required: false },
+        diyComponent: { type:Object }
     },
     setup(props, context) {
         const canNotVisible = ref(false)
@@ -61,6 +64,9 @@ $gray: rgb(128, 128, 128, 0.3);
     font-size: 1em;
     padding: 16px 16px;
     display: block;
+    .hidden{
+        display: none;
+    }
 }
 
 .showTitle {
