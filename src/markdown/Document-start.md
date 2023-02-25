@@ -4,7 +4,7 @@
 在你的代码中引入此组件库
 
 ```javascript
-import {Button, Tabs, Tab, Switch, Dialog, openDialog} from "XXXXXXXXXXXXXXXX"
+import {Button, Tabs, Tab, Switch, Dialog, openDialog} from "little-wheel-ui"
 ```
 
 现在尝试一下使用下面的Button组件吧
@@ -20,7 +20,7 @@ import {Button, Tabs, Tab, Switch, Dialog, openDialog} from "XXXXXXXXXXXXXXXX"
   </div>
 </template>
 <script>
-import {Button, Tabs, Tab, Switch, Dialog, openDialog} from "XXXXXXXXXXXXXXXX"
+import {Button, Tabs, Tab, Switch, Dialog, openDialog} from "little-wheel-ui"
 export default {
   components: {Button}
 }

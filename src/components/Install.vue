@@ -6,11 +6,11 @@
                 打开终端运行下列命令:
             </p>
 
-            <pre>npm install XXXXXXXXXXXXXXXX</pre>
+            <pre>npm install little-wheel-ui</pre>
             <p>
                 或
             </p>
-            <pre>yarn add XXXXXXXXXXXXXXXX</pre>
+            <pre>yarn add little-wheel-ui</pre>
             <p>
                 下一步：<router-link to="/start/comming">开始</router-link>
             </p>
