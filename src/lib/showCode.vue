@@ -43,12 +43,16 @@ export default {
         let x = ref('');
         const Prism = window.Prism
 
-        if (props.path) {
-            import(/* @vite-ignore */props.path).then((a) => { 
-                // import 加入 /* @vite-ignore */ 消除终端警告 https://blog.csdn.net/qq_29733191/article/details/123858460
-                x.value = Prism.highlight(a.default,Prism.languages.html,'html')
-                })
-        }
+        // if (props.path) {
+        //     import(/* @vite-ignore */props.path).then((a) => { 
+        //         // import 加入 /* @vite-ignore */ 消除终端警告 https://blog.csdn.net/qq_29733191/article/details/123858460
+        //         x.value = Prism.highlight(a.default,Prism.languages.html,'html')
+        //         })
+        // }
+
+        //放弃动态import ，使用者需要先import md文件，把md文件通过插件转出字符串
+        //再传给showCode 组件彩色化
+        x.value = Prism.highlight(props.path ,Prism.languages.html,'html')
         return { canNotVisible, showClick, x }
     }
 }

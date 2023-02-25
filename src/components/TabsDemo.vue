@@ -1,6 +1,6 @@
 <template>
     <h1 class="intro">导航栏</h1>
-    <showCode title="基础用法" path="../markdown/Tabs/TabsDemo1.md">
+    <showCode title="基础用法" :path="tabsDemo1">
         <Tabs v-model:selected="activeName">
             <Tab title="导航1">Tab1 <Button type="primary">按钮1</Button></Tab>
             <Tab title="导航2">Tab2 <Button type="success">按钮2</Button></Tab>
@@ -14,6 +14,7 @@
 <script>
 
 import { ref } from 'vue';
+import tabsDemo1 from '../markdown/Tabs/TabsDemo1.md';
 import Tabs from '../lib/Tabs.vue'
 import Tab from '../lib/Tab.vue'
 import Button from '../lib/Button.vue';
@@ -31,7 +32,7 @@ export default {
     setup(props) {
         const activeName = ref('导航1')
 
-        return { activeName }
+        return { activeName , tabsDemo1}
     }
 }
 </script>
