@@ -25,7 +25,7 @@ export default {
     setup() {
         const y = ref(false)
         const c = ref(true)
-        console.log(SwitchD2)
+        // console.log(SwitchD2)
         return { y, c, SwitchD1,SwitchD2 }
     }
 }
