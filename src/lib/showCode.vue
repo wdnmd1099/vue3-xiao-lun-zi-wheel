@@ -52,7 +52,9 @@ export default {
 
         //放弃动态import ，使用者需要先import md文件，把md文件通过插件转出字符串
         //再传给showCode 组件彩色化
-        x.value = Prism.highlight(props.path ,Prism.languages.html,'html')
+        if(props.path){
+            x.value = Prism.highlight(props.path ,Prism.languages.html,'html')
+        }
         // console.log(props.path)
         return { canNotVisible, showClick, x }
     }

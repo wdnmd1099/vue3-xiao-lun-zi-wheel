@@ -18,6 +18,7 @@
                         <li><router-link to="/start/button">button</router-link></li>
                         <li><router-link to="/start/dialog">dialog</router-link></li>
                         <li><router-link to="/start/tabs">tabs</router-link></li>
+                        <li><router-link to="/start/keyBoard">keyBoard</router-link></li>
                     </ol>
                 </div>
             </div>
