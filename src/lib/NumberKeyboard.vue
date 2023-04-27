@@ -30,33 +30,28 @@ export default {
         onMounted(() => {
             const div = document.querySelector('.buttons')
             const input: any = document.querySelector('.likeInput')
-           
-            div.addEventListener('mousedown', (e) => {
+
+            div.addEventListener('mousedown', (e: any) => {
                 const t = e.target
-                if(t.className != 'buttons' && t.className === 'button'){
+                if (t.className != 'buttons' && t.className === 'button') {
                     t.style.background = 'rgb(235, 237, 240)'
                 }
+                setTimeout(() => {
+                    t.style.background = ''
+                }, 250);
             })
-            div.addEventListener('mouseup', (e) => {
+            div.addEventListener('mouseup', (e: any) => {
                 const t = e.target
                 t.style.background = ''
-                if(input.innerText.length < 6){
-                    const x = t.innerText.toString()
-                    input.innerText += x
-                    console.log(123)
-                }
-                if(t.innerText === 'del'){
-                    // console.log(input.innerText)
+                if (t.innerText != 'del' && input.innerText.length < 6 && t.className === 'button') {
+                    if(input.innerText.length === 0 && t.innerText === '.'){
+                        return
+                    }
+                    input.innerText += t.innerText
+                } else if (t.innerText === 'del') {
                     let x = input.innerText.toString()
                     let str = x.substring(0, x.length - 1);
-                    console.log(str)
-                    if(Number(str)){
-                        input.innerText = Number(str)
-                    }
-                    
-                    if(str === ''){
-                        input.innerText = ''
-                    }
+                    input.innerText = str
                 }
             })
         })
@@ -75,24 +70,26 @@ export default {
             { text: 7, onclick: () => { toastText(7) } },
             { text: 8, onclick: () => { toastText(8) } },
             { text: 9, onclick: () => { toastText(9) } },
-            { text: 'del', onclick: () => { toastText(10086) } },
+            { text: '.', onclick: () => { toastText(10086) } },
             { text: 0, onclick: () => { toastText(0) } },
             {
                 text: 'del', onclick: () => {
-                    
+
                 }
             },
         ]
         let button = allButton.map((item) => { return item })
         return { button }
     }
+
+
 }
 </script>
 
 
 <style lang="scss" scoped>
 .test {
-    border: 1px solid rgb(60, 140, 219);
+    border: 2px solid rgb(242, 243, 245);
     height: 667px;
     width: 375px;
     position: relative;
@@ -121,7 +118,6 @@ export default {
         padding-bottom: 24px;
 
         >.buttons {
-            border:1px solid black;
             display: grid;
             grid-template-areas:
                 "n1 n2 n3"
@@ -187,7 +183,7 @@ export default {
                 &:nth-child(11) {
                     grid-area: n0;
                 }
-                
+
                 &:nth-child(12) {
                     grid-area: nd;
                 }
