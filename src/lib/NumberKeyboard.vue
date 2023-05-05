@@ -1,31 +1,29 @@
 <template>
     <div>
         <div class="test">
-
             <div class="likeInputWrapper">
                 <div class="likeInput"></div>
             </div>
 
-            <div class="keyBoard">
+
+            <div :class="{ keyBoard: true, moveDown: isVisible }" v-if="display">
                 <div class="buttons">
                     <button class="button" v-for="(t, index) in button" :key="index" @click="t.onclick">
-                        {{ t.text }}
+                        <span v-if="t.text != 'svg'" class="button-label">{{ t.text }}</span>
+                        <div v-if="t.text === 'svg'" class="buttonsSvg"><img :src=t.path alt=""></div>
                     </button>
                 </div>
             </div>
+
+            <div class="test1"></div>
+
         </div>
     </div>
 </template>
     
 <script lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 export default {
-    components: {
-
-    },
-    props: {
-
-    },
     setup(props, context) {
         onMounted(() => {
             const div = document.querySelector('.buttons')
@@ -42,23 +40,25 @@ export default {
             })
             div.addEventListener('mouseup', (e: any) => {
                 const t = e.target
+                let reg = RegExp(/../)
                 t.style.background = ''
-                if (t.innerText != 'del' && input.innerText.length < 6 && t.className === 'button') {
-                    if(input.innerText.length === 0 && t.innerText === '.'){
+                if (t.innerText != 'svg' && input.innerText.length < 6 && t.className === 'button') {
+                    if (input.innerText.length === 0 && t.innerText === '.') {
+                        return
+                    }
+                    if (input.innerText.length > 0 && reg.test(input.innerText) === true && t.innerText === '.') {
+                        console.log(123)
                         return
                     }
                     input.innerText += t.innerText
-                } else if (t.innerText === 'del') {
-                    let x = input.innerText.toString()
-                    let str = x.substring(0, x.length - 1);
-                    input.innerText = str
                 }
+                console.log(e)
             })
         })
 
-        const toastText = function (x) {
-            // console.log(x)
-        }
+        const toastText = function (x) { }
+        let isVisible = ref(false)
+        let display = ref(true)
 
         let allButton = [
             { text: 1, onclick: () => { toastText(1) } },
@@ -70,16 +70,32 @@ export default {
             { text: 7, onclick: () => { toastText(7) } },
             { text: 8, onclick: () => { toastText(8) } },
             { text: 9, onclick: () => { toastText(9) } },
-            { text: '.', onclick: () => { toastText(10086) } },
+            {
+                text: 'svg', onclick: () => {
+                    const keyBoard: any = document.querySelector('.keyBoard')
+                    console.log(isVisible)
+
+                    isVisible.value = true
+                    console.log(isVisible)
+                    setTimeout(() => {
+                        isVisible.value = false
+                        display.value = false
+                    }, 400);
+
+                }, path: 'src/assets/svg/KeyboardHidden.svg',
+            },
             { text: 0, onclick: () => { toastText(0) } },
             {
-                text: 'del', onclick: () => {
-
-                }
+                text: 'svg', onclick: () => {
+                    const input: any = document.querySelector('.likeInput')
+                    let x = input.innerText.toString()
+                    let str = x.substring(0, x.length - 1);
+                    input.innerText = str
+                }, path: 'src/assets/svg/KeyboardDel.svg'
             },
         ]
         let button = allButton.map((item) => { return item })
-        return { button }
+        return { button, isVisible, display }
     }
 
 
@@ -88,6 +104,20 @@ export default {
 
 
 <style lang="scss" scoped>
+.buttonsSvg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+
+    >img {
+        height: 22px;
+        width: auto;
+    }
+}
+
+
+
 .test {
     border: 2px solid rgb(242, 243, 245);
     height: 667px;
@@ -102,10 +132,36 @@ export default {
         align-items: center;
 
         >.likeInput {
-            border: 1px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border: 2px solid rgb(112, 125, 173);
+            border-radius: 4px;
             height: 24px;
             width: 80%;
         }
+    }
+
+    @keyframes move-down {
+        0% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        100% {
+            transform: translateY(101%);
+            opacity: 1;
+        }
+    }
+
+    >.test1 {
+        width: 100%;
+        height: 240px;
+        background: rgb(255, 255, 255);
+        z-index: 100;
+        position: absolute;
+        bottom: -243px;
     }
 
     >.keyBoard {
@@ -116,6 +172,13 @@ export default {
         background: rgb(242, 243, 245);
         padding-top: 4px;
         padding-bottom: 24px;
+        // height: 20%;
+        z-index: 2;
+
+        &.moveDown {
+            animation: move-down 0.4s ease;
+        }
+
 
         >.buttons {
             display: grid;
@@ -139,6 +202,16 @@ export default {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+
+                &.moveDown {
+                    display: none;
+                }
+
+
+                >.button-label {
+
+                    pointer-events: none;
+                }
 
                 &:nth-child(1) {
                     grid-area: n1;
@@ -191,5 +264,4 @@ export default {
         }
 
     }
-}
-</style>
+}</style>

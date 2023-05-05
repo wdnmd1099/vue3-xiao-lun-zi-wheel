@@ -9,6 +9,7 @@ import Install from './components/install.vue'
 import Comming from './components/Document-start.vue'
 import DiaLogDemo from './components/diaLogDemo.vue'
 import KeyBoard from './components/KeyBoard.vue'
+import test from './lib/test.vue'
 
 const history = createWebHashHistory()
 export const router = createRouter({
@@ -27,6 +28,7 @@ export const router = createRouter({
                 { path: 'dialog', component: DiaLogDemo },
                 { path: 'tabs', component: TabsDemo },
                 { path: 'keyBoard', component: KeyBoard },
+                { path: 'test', component: test },
             ],
         },
     ]

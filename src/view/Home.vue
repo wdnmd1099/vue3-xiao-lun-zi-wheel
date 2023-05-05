@@ -3,7 +3,7 @@
         <NavBar />
 
         <div class="HomeLogo">
-            <img class="Logo" src="../svg/lunziLogo.svg" alt="轮子图片">
+            <img class="Logo" src="../assets/svg/lunziLogo.svg" alt="轮子图片">
         </div>
 
         <div class="title">
