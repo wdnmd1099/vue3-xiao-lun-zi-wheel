@@ -6,7 +6,7 @@
             </div>
 
 
-            <div :class="{ keyBoard: true, moveDown: isVisible }" v-if="display">
+            <div :class="{ keyBoard: true, down: keyboardDown, up:keyboardUp }">
                 <div class="buttons">
                     <button class="button" v-for="(t, index) in button" :key="index" @click="t.onclick">
                         <span v-if="t.text != 'svg'" class="button-label">{{ t.text }}</span>
@@ -15,7 +15,10 @@
                 </div>
             </div>
 
-            <div class="test1"></div>
+            <div :class="{ upLine: true, }" v-show="showLine" @click="lineClick">
+                <img src="../assets/svg/upline.svg" alt="">
+            </div>
+            <div :class="{ test1: true }"></div>
 
         </div>
     </div>
@@ -57,8 +60,16 @@ export default {
         })
 
         const toastText = function (x) { }
-        let isVisible = ref(false)
-        let display = ref(true)
+        const keyboardDown = ref(false)
+        const keyboardUp = ref(false)
+        const showLine = ref(false)
+
+
+        const lineClick = function () {
+            showLine.value = false
+            keyboardDown.value = false
+            keyboardUp.value = true
+        }
 
         let allButton = [
             { text: 1, onclick: () => { toastText(1) } },
@@ -72,15 +83,15 @@ export default {
             { text: 9, onclick: () => { toastText(9) } },
             {
                 text: 'svg', onclick: () => {
-                    const keyBoard: any = document.querySelector('.keyBoard')
-                    console.log(isVisible)
-
-                    isVisible.value = true
-                    console.log(isVisible)
+                    keyboardDown.value = true
+                    keyboardUp.value = false
                     setTimeout(() => {
-                        isVisible.value = false
-                        display.value = false
-                    }, 400);
+                        showLine.value = true
+                        const keyBoard:any = document.querySelector('.keyBoard')
+                        keyBoard.style.bottom = '0px'
+                    }, 200);
+
+
 
                 }, path: 'src/assets/svg/KeyboardHidden.svg',
             },
@@ -95,7 +106,7 @@ export default {
             },
         ]
         let button = allButton.map((item) => { return item })
-        return { button, isVisible, display }
+        return { button, keyboardDown, keyboardUp, showLine, lineClick }
     }
 
 
@@ -104,6 +115,27 @@ export default {
 
 
 <style lang="scss" scoped>
+.upLine {
+    width: 100%;
+    height: 24px;
+    background: rgba(242, 243, 245, 1);
+    position: absolute;
+    bottom: 0px;
+    animation: up-line 0.1s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.upLineMoveDown {
+        animation: move-down 0.1s ease;
+    }
+
+    >img {
+        height: 22px;
+    }
+
+}
+
 .buttonsSvg {
     display: flex;
     justify-content: center;
@@ -126,6 +158,15 @@ export default {
     border-radius: 8px;
     margin-left: 200px;
 
+    >.test1 {
+        width: 100%;
+        height: 240px;
+        background: rgb(255, 255, 255, 1);
+        z-index: 100;
+        position: absolute;
+        bottom: -243px;
+    }
+
     >.likeInputWrapper {
         display: flex;
         justify-content: center;
@@ -143,25 +184,28 @@ export default {
         }
     }
 
-    @keyframes move-down {
+    @keyframes keyBoardDown {
         0% {
-            transform: translateY(0);
+            transform: translateY(0%);
             opacity: 1;
         }
 
         100% {
-            transform: translateY(101%);
-            opacity: 1;
+            transform: translateY(100%);
+            opacity: 0;
         }
     }
 
-    >.test1 {
-        width: 100%;
-        height: 240px;
-        background: rgb(255, 255, 255);
-        z-index: 100;
-        position: absolute;
-        bottom: -243px;
+    @keyframes keyBoardUp {
+        0% {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateY(0%);
+            opacity: 1;
+        }
     }
 
     >.keyBoard {
@@ -172,13 +216,15 @@ export default {
         background: rgb(242, 243, 245);
         padding-top: 4px;
         padding-bottom: 24px;
-        // height: 20%;
-        z-index: 2;
 
-        &.moveDown {
-            animation: move-down 0.4s ease;
+        // height: 20%;
+        &.down {
+            animation: keyBoardDown 0.25s linear 1 alternate forwards;
         }
 
+        &.up {
+            animation: keyBoardUp 0.25s linear 1 alternate forwards;
+        }
 
         >.buttons {
             display: grid;
@@ -203,9 +249,9 @@ export default {
                 justify-content: center;
                 align-items: center;
 
-                &.moveDown {
-                    display: none;
-                }
+                // &.moveDown {
+                //     display: none;
+                // }
 
 
                 >.button-label {
@@ -264,4 +310,5 @@ export default {
         }
 
     }
-}</style>
+}
+</style>

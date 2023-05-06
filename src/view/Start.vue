@@ -14,11 +14,11 @@
                 <div>
                     <h2>组件列表</h2>
                     <ol class="addTopPadding">
-                        <li><router-link to="/start/switch">switch</router-link></li>
-                        <li><router-link to="/start/button">button</router-link></li>
-                        <li><router-link to="/start/dialog">dialog</router-link></li>
-                        <li><router-link to="/start/tabs">tabs</router-link></li>
-                        <li><router-link to="/start/keyBoard">keyBoard</router-link></li>
+                        <li><router-link to="/start/switch">开关</router-link></li>
+                        <li><router-link to="/start/button">按钮</router-link></li>
+                        <li><router-link to="/start/dialog">对话框</router-link></li>
+                        <li><router-link to="/start/tabs">导航栏</router-link></li>
+                        <li><router-link to="/start/keyBoard">数字键盘</router-link></li>
                         <li><router-link to="/start/test">test</router-link></li>
                     </ol>
                 </div>
