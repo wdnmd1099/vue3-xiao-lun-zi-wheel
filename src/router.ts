@@ -10,6 +10,7 @@ import Comming from './components/Document-start.vue'
 import DiaLogDemo from './components/diaLogDemo.vue'
 import KeyBoard from './components/KeyBoard.vue'
 import test from './lib/test.vue'
+import Toast from './components/toastDemo.vue'
 
 const history = createWebHashHistory()
 export const router = createRouter({
@@ -27,8 +28,10 @@ export const router = createRouter({
                 { path: 'button', component: Button },
                 { path: 'dialog', component: DiaLogDemo },
                 { path: 'tabs', component: TabsDemo },
+                { path: 'toast', component: Toast },
                 { path: 'keyBoard', component: KeyBoard },
                 { path: 'test', component: test },
+                
             ],
         },
     ]

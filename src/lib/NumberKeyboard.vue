@@ -90,9 +90,6 @@ export default {
                         const keyBoard:any = document.querySelector('.keyBoard')
                         keyBoard.style.bottom = '0px'
                     }, 200);
-
-
-
                 }, path: 'src/assets/svg/KeyboardHidden.svg',
             },
             { text: 0, onclick: () => { toastText(0) } },
@@ -108,8 +105,6 @@ export default {
         let button = allButton.map((item) => { return item })
         return { button, keyboardDown, keyboardUp, showLine, lineClick }
     }
-
-
 }
 </script>
 
@@ -209,15 +204,12 @@ export default {
     }
 
     >.keyBoard {
-        // border: 1px solid blue;
         position: absolute;
         bottom: 0px;
         width: 100%;
         background: rgb(242, 243, 245);
         padding-top: 4px;
         padding-bottom: 24px;
-
-        // height: 20%;
         &.down {
             animation: keyBoardDown 0.25s linear 1 alternate forwards;
         }

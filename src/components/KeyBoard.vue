@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import { ref } from 'vue';
 import showCode from '../lib/showCode.vue';
 import KeyBoard from '../lib/NumberKeyboard.vue'
 export default {
