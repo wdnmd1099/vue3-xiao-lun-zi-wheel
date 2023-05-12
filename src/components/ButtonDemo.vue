@@ -71,10 +71,6 @@ export default {
 
 
 <style lang="scss">
-.ButtonDemo {
-    // margin-top: 25px;
-
-}
 
 .Demo-padding-right {
     >Button {

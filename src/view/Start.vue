@@ -19,8 +19,9 @@
                         <li><router-link to="/start/dialog">对话框</router-link></li>
                         <li><router-link to="/start/tabs">导航栏</router-link></li>
                         <li><router-link to="/start/toast">轻提示</router-link></li>
-                        <!-- <li><router-link to="/start/keyBoard">数字键盘</router-link></li>
-                        <li><router-link to="/start/test">test</router-link></li> -->
+                        <li><router-link to="/start/calendar">日历</router-link></li>
+                        <li><router-link to="/start/keyBoard">数字键盘</router-link></li>
+                        <li><router-link to="/start/test">test</router-link></li>
 
                     </ol>
                 </div>

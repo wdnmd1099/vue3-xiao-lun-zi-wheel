@@ -42,6 +42,7 @@ export default {
         }
         let x = ref('');
         const Prism = window.Prism
+        // 如果代码展示不出来，记得看看有没有return md文件
 
         // if (props.path) {
         //     import(/* @vite-ignore */props.path).then((a) => { 

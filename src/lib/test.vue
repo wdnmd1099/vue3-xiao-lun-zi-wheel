@@ -1,29 +1,50 @@
 <template>
-    <div class="square" :style="{ transform: `translateX(${position}px)` }"></div>
-    <button @click="moveSquare">Move Right</button>
+    <div class="keyboard">
+        <div class="row" v-for="row in rows" :key="row">
+            <div class="digit" v-for="digit in row" :key="digit" :class="{ selected: selectedNumber === digit }"
+                @click="selectNumber(digit)">
+                {{ digit }}
+            </div>
+        </div>
+    </div>
 </template>
   
 <script>
-import { ref } from 'vue'
-
 export default {
-    setup() {
-        const position = ref(0)
-
-        const moveSquare = () => {
-            position.value += 100
+    data() {
+        return {
+            rows: [
+                ['1', '2', '3'],
+                ['4', '5', '6'],
+                ['7', '8', '9'],
+                ['*', '0', '#']
+            ],
+            selectedNumber: null
+        };
+    },
+    methods: {
+        selectNumber(number) {
+            this.selectedNumber = number;
         }
-
-        return { position, moveSquare }
     }
-}
+};
 </script>
   
 <style>
-.square {
-    width: 100px;
-    height: 100px;
-    background-color: red;
+.digit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ccc;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: #007bff;
+    color: #fff;
 }
 </style>
   
