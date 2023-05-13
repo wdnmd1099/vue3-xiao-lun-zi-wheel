@@ -31,7 +31,7 @@ export default {
         onMounted(() => {
             const div = document.querySelector('.buttons')
             const input: any = document.querySelector('.likeInput')
-
+            
             div.addEventListener('mousedown', (e: any) => {
                 const t = e.target
                 if (t.className != 'buttons' && t.className === 'button') {

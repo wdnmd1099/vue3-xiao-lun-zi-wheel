@@ -20,13 +20,22 @@
                 <div class="shadowLine"></div>
             </div>
 
-            <div class="datePicker">
-                <div :class="{ days: true, selected: refSelected === t }" @click="clickDays(t)" 
-                v-for="(t, index) in day" 
-                    :key="index">
-                    <div :class="{ day: true }">{{ t }}</div>
+            <div class="allPicker">
+                <div class="datePickerWrapper" v-for="(month, index) in 12" :key="index">
+                    <div class="dateTextWrapper">
+                        <div class="dateText">{{ years+'年'+month+'月' }}</div>
+                    </div>
+                    <div :class="{datePicker:true,}">
+                        <div :class="{ days: true, selected: refYear === years && refMonth === month && refDay === t}" 
+                        @click="clickDays(years,month,t)"
+                            v-for="(t, index) in getDays(years,month)" :key="index">
+                            <div :class="{ day: true }">{{ t }}</div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
+
 
             <div class="footer">
                 <Button type="danger" class="btn">确认</Button>
@@ -46,24 +55,64 @@ export default {
 
     },
     setup(props, context) {
-        const refSelected = ref(undefined)
-        const clickDays = function (t) {
-            if(t===null)return
-            refSelected.value = t
-            console.log(t)
+        onMounted(() => {
+            // let x = 0;
+            // arr.map(item => {
+            //     if (item === null) {
+            //         x += 1
+            //     }
+            // })
+            // if (x >= 4) {
+            //     const datePicker: HTMLElement = document.querySelector('.datePicker')
+            //     datePicker.style.gridAutoRows = ' calc(100% / 6)';
+            // }
+
+        })
+        const refYear = ref(undefined)
+        const refMonth = ref(undefined)
+        const refDay = ref(undefined)
+        const clickDays = function (y:Number,m:Number,t:Number) {
+            if (t === null) return
+            refYear.value = y
+            refMonth.value = m
+            refDay.value = t
         }
 
 
-        const arr = [null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
-            24, 25, 26, 27, 28, 29, 30, 31]
-        const day = arr.map(item => { return item })
+        const nowDate = new Date()
+        const years = nowDate.getFullYear()
+        let changeDatePickersGridAutoRows = ref()
+        let xxx = 0
 
-        return { day, refSelected, clickDays }
+        const getDays = function (year, month) {
+            xxx += 1
+            let arr = []
+            const date = new Date(year, month, 0).getDate(); //某月的天数
+            // console.log(date)
+            const weeksDay = new Date(2023, month - 1, 1).getDay() // 星期几
+            // console.log(weeksDay)
+            for (let i = 0; i < weeksDay; i++) {
+                arr.push(null)
+            }
+            for (let i = 0; i < date; i++) {
+                arr.push(i + 1)
+            }
+            // console.log(xxx)
+            return arr;
+        }
+
+
+        return { refYear,refMonth,refDay, clickDays, getDays, years, changeDatePickersGridAutoRows }
     }
 }
 </script>
 
 <style lang="scss" scoped>
+::-webkit-scrollbar {
+    //隐藏滚动条，仅chrome内核的浏览器可用
+    display: none;
+}
+
 .wrapper {
     margin-left: 200px;
     height: 557px;
@@ -74,41 +123,72 @@ export default {
     z-index: 9999;
     position: relative;
 
-    >.datePicker {
+    // overflow: hidden;
+
+    >.allPicker {
         height: 360px;
-        width: 100%;
+        overflow: auto;
+        border: 1px solid rgb(38, 0, 255);
 
-        display: grid;
-        grid-template-areas:
-            "n1 n2 n3 n4 n5 n6 n7"
-            "n8 n9 n10 n11 n12 n13 n14"
-            "n15 n16 n17 n18 n19 n20 n21"
-            "n22 n23 n24 n25 n26 n27 n28"
-            "n29 n30 n31 n32 n33 n34 n35";
-        grid-auto-rows: calc(100% / 5);
-        grid-auto-columns: 1fr;
-        flex-wrap: wrap;
+        >.datePickerWrapper {
 
-        >.days {
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-
-            // border: 1px solid rgb(201, 201, 201);
-            &.selected {
-                // border: 1px solid blue;
-                background: rgb(238, 10, 36);
+            // border: 1px solid rgb(238, 1, 1);
+            >.dateTextWrapper {
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
-            >.day {
-                pointer-events: none;
-                font-size: 16px;
-                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            >.datePicker {
+                height: 360px;
+                width: 100%;
+                display: grid;
+                grid-template-areas:
+                    "n1 n2 n3 n4 n5 n6 n7"
+                    "n8 n9 n10 n11 n12 n13 n14"
+                    "n15 n16 n17 n18 n19 n20 n21"
+                    "n22 n23 n24 n25 n26 n27 n28"
+                    "n29 n30 n31 n32 n33 n34 n35";
+                // "n36 n37 n38 n39 n31 n40 n41";
+                grid-auto-rows: calc(100% / 5);
+                grid-auto-columns: 1fr;
+                flex-wrap: wrap;
+
+                &.changeHeight {
+                    grid-auto-rows: calc(100% / 6);
+                }
+
+
+                >.days {
+                    // background: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 4px;
+                    // border: 1px solid rgb(238, 1, 1);
+
+                    &.selected {
+                        // border: 1px solid blue;
+                        background: rgb(238, 10, 36);
+                        color: white;
+                    }
+
+                    >.day {
+                        pointer-events: none;
+                        font-size: 16px;
+                        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                    }
+                }
+
+
+
             }
         }
     }
+
+
+
+
 
     >.footer {
         display: flex;
@@ -178,5 +258,4 @@ export default {
     z-index: 1;
     position: absolute;
     bottom: 0;
-}
-</style>
+}</style>
