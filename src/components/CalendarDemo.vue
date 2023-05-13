@@ -1,8 +1,7 @@
 <template>
     <div>
-        <Calendar></Calendar>
-        <hr style="margin-top: 20px;">
-        <img src="../assets/svg/test.png" alt="">
+        <Calendar v-model:showDate='val'></Calendar>
+        <input type="text" class="ipt" :value="val">
     </div>
 </template>
 
@@ -13,8 +12,8 @@ import showCode from '../lib/showCode.vue';
 export default {
     components: { Calendar, showCode},
     setup() {
-        
-        return {   }
+        const val = ref('shit')
+        return { val }
     }
 }
 </script>

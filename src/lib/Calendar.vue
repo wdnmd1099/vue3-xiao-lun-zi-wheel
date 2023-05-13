@@ -51,7 +51,7 @@ export default {
         Button,
     },
     props: {
-
+        showDate:{type:String}
     },
     setup(props, context) {
         onMounted(() => {
@@ -63,6 +63,7 @@ export default {
             currentEl.classList.add('firstSelected')
             allPicker.scrollTop = `${currentEl.offsetTop - 180}`
 
+            console.log(props.showDate)
 
             const currentMonthEl = allPicker.children[currentMonth].children[1].children
 
@@ -76,6 +77,7 @@ export default {
             allPicker.addEventListener('click', (e) => {
                 if (refYear.value && refMonth.value && refDay.value&&currentMonth<=refMonth.value&&currentDay<=refDay.value) {
                     pickDate.innerText = `${refYear.value + '年' + refMonth.value + '月' + refDay.value + '日'}`
+                    context.emit( 'update:showDate', `${refYear.value + '年' + refMonth.value + '月' + refDay.value + '日'}` )
                 }
                 if (x === false) { return }
                 x = false
@@ -102,6 +104,7 @@ export default {
             refMonth.value = m
             refDay.value = t
             // console.log(y, m, t)
+            
         }
 
 
