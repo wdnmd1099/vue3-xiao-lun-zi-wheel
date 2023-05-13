@@ -3,7 +3,7 @@
         <div class="wrapper">
             <div class="topMenu">
                 <div class="datePickText">日期选择</div>
-                <div class="pickDate">{{ years }}年{{ months+1 }}月{{ days }}日</div>
+                <div class="pickDate">{{ years }}年{{ months + 1 }}月{{ days }}日</div>
                 <div class="daysText">
                     <table class="daysTextTable">
                         <tr class="daysTextTr">
@@ -57,20 +57,37 @@ export default {
         onMounted(() => {
             const allPicker: any = document.querySelector('.allPicker')
             const pickDate: any = document.querySelector('.pickDate')
-            const currentMonth = nowDate.getMonth()
+            const currentMonth = nowDate.getMonth() //比实际月份小1
             const currentDay = nowDate.getDate()
             const currentEl = allPicker.children[currentMonth].children[1].children[currentDay]
             currentEl.classList.add('firstSelected')
-            allPicker.scrollTop = `${currentEl.offsetTop-130}`
+            allPicker.scrollTop = `${currentEl.offsetTop - 180}`
+
+
+            const currentMonthEl = allPicker.children[currentMonth].children[1].children
+
+            for(let i = 0; i<currentDay;i++){
+                currentMonthEl[i].classList.add('notSelect')
+            }
+
+
 
             let x = true
             allPicker.addEventListener('click', (e) => {
-                pickDate.innerText = `${refYear.value+'年'+refMonth.value+'月'+refDay.value+'日'}`
-                if(x===false){return}
-                x=false
+                if (refYear.value && refMonth.value && refDay.value&&currentMonth<=refMonth.value&&currentDay<=refDay.value) {
+                    pickDate.innerText = `${refYear.value + '年' + refMonth.value + '月' + refDay.value + '日'}`
+                }
+                if (x === false) { return }
+                x = false
                 document.querySelector('.firstSelected').classList.remove('firstSelected')
             })
 
+            allPicker.addEventListener('scroll', (e) => {
+                if (allPicker.scrollTop <= currentEl.offsetTop - 180) {
+                    // 如果滚动到顶部，就将滚动距离设置为 0
+                    allPicker.scrollTop = currentEl.offsetTop - 180;
+                }
+            })
 
 
         })
@@ -80,10 +97,11 @@ export default {
 
         const clickDays = function (y: Number, m: Number, t: Number) {
             if (t === null) return
+            if(m<=months+1 && t<days)return
             refYear.value = y
             refMonth.value = m
             refDay.value = t
-            console.log(y, m, t)
+            // console.log(y, m, t)
         }
 
 
@@ -108,7 +126,7 @@ export default {
 
 
 
-        return { refYear, refMonth, refDay, clickDays, getDays, years, nowDate,months,days }
+        return { refYear, refMonth, refDay, clickDays, getDays, years, nowDate, months, days }
     }
 }
 </script>
@@ -129,15 +147,11 @@ export default {
     z-index: 9999;
     position: relative;
 
-    // overflow: hidden;
-
     >.allPicker {
         height: 360px;
         overflow: auto;
-        >.datePickerWrapper {
 
-            // transform: translateY(-100px);
-            // border: 1px solid rgb(238, 1, 1);
+        >.datePickerWrapper {
             >.dateTextWrapper {
                 display: flex;
                 align-items: center;
@@ -153,7 +167,6 @@ export default {
                     "n15 n16 n17 n18 n19 n20 n21"
                     "n22 n23 n24 n25 n26 n27 n28"
                     "n29 n30 n31 n32 n33 n34 n35";
-                // "n36 n37 n38 n39 n31 n40 n41";
                 grid-auto-rows: 55px;
 
                 >.days {
@@ -162,13 +175,15 @@ export default {
                     align-items: center;
                     justify-content: center;
                     border-radius: 4px;
-                    // border: 1px solid rgb(238, 1, 1);
-
                     &.selected {
-                        // border: 1px solid blue;
                         background: rgb(238, 10, 36);
                         color: white;
                     }
+                    &.notSelect{
+                        color:rgb(203, 201, 204);
+                        background: white;
+                    }
+                  
 
                     &.firstSelected {
                         background: rgb(238, 10, 36);
@@ -187,10 +202,6 @@ export default {
             }
         }
     }
-
-
-
-
 
     >.footer {
         display: flex;
