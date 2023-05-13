@@ -21,14 +21,13 @@
             </div>
 
             <div class="allPicker">
-                <div class="datePickerWrapper" v-for="(month, index) in 12" :key="index">
+                <div class="datePickerWrapper" v-for="(month, index) in   12  " :key="index">
                     <div class="dateTextWrapper">
-                        <div class="dateText">{{ years+'年'+month+'月' }}</div>
+                        <div class="dateText">{{ years + '年' + month + '月' }}</div>
                     </div>
-                    <div :class="{datePicker:true,}">
-                        <div :class="{ days: true, selected: refYear === years && refMonth === month && refDay === t}" 
-                        @click="clickDays(years,month,t)"
-                            v-for="(t, index) in getDays(years,month)" :key="index">
+                    <div :class="{ datePicker: true, changeHeight: false }">
+                        <div :class="{ days: true, selected: refYear === years && refMonth === month && refDay === t }"
+                            @click="clickDays(years, month, t)" v-for="(t, index) in getDays(years, month)" :key="index">
                             <div :class="{ day: true }">{{ t }}</div>
                         </div>
                     </div>
@@ -56,22 +55,20 @@ export default {
     },
     setup(props, context) {
         onMounted(() => {
-            // let x = 0;
-            // arr.map(item => {
-            //     if (item === null) {
-            //         x += 1
+            // arrsNull.map(item => {
+            //     // console.log(item)
+            //     if (item >= 4) {
+            //         const datePicker: HTMLElement = document.querySelector('.datePicker')
+            //         datePicker.style.gridAutoRows = 'calc(100% / 6)';
             //     }
             // })
-            // if (x >= 4) {
-            //     const datePicker: HTMLElement = document.querySelector('.datePicker')
-            //     datePicker.style.gridAutoRows = ' calc(100% / 6)';
-            // }
+
 
         })
         const refYear = ref(undefined)
         const refMonth = ref(undefined)
         const refDay = ref(undefined)
-        const clickDays = function (y:Number,m:Number,t:Number) {
+        const clickDays = function (y: Number, m: Number, t: Number) {
             if (t === null) return
             refYear.value = y
             refMonth.value = m
@@ -81,11 +78,10 @@ export default {
 
         const nowDate = new Date()
         const years = nowDate.getFullYear()
-        let changeDatePickersGridAutoRows = ref()
-        let xxx = 0
+        let changeDatePickersGridAutoRows = ref(0)
+
 
         const getDays = function (year, month) {
-            xxx += 1
             let arr = []
             const date = new Date(year, month, 0).getDate(); //某月的天数
             // console.log(date)
@@ -97,12 +93,12 @@ export default {
             for (let i = 0; i < date; i++) {
                 arr.push(i + 1)
             }
-            // console.log(xxx)
             return arr;
         }
 
 
-        return { refYear,refMonth,refDay, clickDays, getDays, years, changeDatePickersGridAutoRows }
+
+        return { refYear, refMonth, refDay, clickDays, getDays, years, changeDatePickersGridAutoRows, }
     }
 }
 </script>
@@ -128,7 +124,6 @@ export default {
     >.allPicker {
         height: 360px;
         overflow: auto;
-        border: 1px solid rgb(38, 0, 255);
 
         >.datePickerWrapper {
 
@@ -140,7 +135,7 @@ export default {
             }
 
             >.datePicker {
-                height: 360px;
+                // height: 360px;
                 width: 100%;
                 display: grid;
                 grid-template-areas:
@@ -149,10 +144,9 @@ export default {
                     "n15 n16 n17 n18 n19 n20 n21"
                     "n22 n23 n24 n25 n26 n27 n28"
                     "n29 n30 n31 n32 n33 n34 n35";
-                // "n36 n37 n38 n39 n31 n40 n41";
-                grid-auto-rows: calc(100% / 5);
-                grid-auto-columns: 1fr;
-                flex-wrap: wrap;
+                    // "n36 n37 n38 n39 n31 n40 n41";
+                grid-auto-rows: 55px;
+                // grid-auto-columns: 1fr;
 
                 &.changeHeight {
                     grid-auto-rows: calc(100% / 6);
@@ -258,4 +252,5 @@ export default {
     z-index: 1;
     position: absolute;
     bottom: 0;
-}</style>
+}
+</style>
