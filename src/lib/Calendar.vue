@@ -3,7 +3,7 @@
         <div class="wrapper">
             <div class="topMenu">
                 <div class="datePickText">日期选择</div>
-                <div class="pickDate">2023年5月</div>
+                <div class="pickDate">{{ years }}年{{ months+1 }}月{{ days }}日</div>
                 <div class="daysText">
                     <table class="daysTextTable">
                         <tr class="daysTextTr">
@@ -21,12 +21,12 @@
             </div>
 
             <div class="allPicker">
-                <div class="datePickerWrapper" v-for="(month, index) in   12  " :key="index">
+                <div class="datePickerWrapper" v-for="(month, index) in  12  " :key="index">
                     <div class="dateTextWrapper">
                         <div class="dateText">{{ years + '年' + month + '月' }}</div>
                     </div>
-                    <div :class="{ datePicker: true, changeHeight: false }">
-                        <div :class="{ days: true, selected: refYear === years && refMonth === month && refDay === t }"
+                    <div :class="{ datePicker: true, }">
+                        <div :class="{ days: true, selected: refYear === years && refMonth === month && refDay === t, }"
                             @click="clickDays(years, month, t)" v-for="(t, index) in getDays(years, month)" :key="index">
                             <div :class="{ day: true }">{{ t }}</div>
                         </div>
@@ -55,32 +55,42 @@ export default {
     },
     setup(props, context) {
         onMounted(() => {
-            // arrsNull.map(item => {
-            //     // console.log(item)
-            //     if (item >= 4) {
-            //         const datePicker: HTMLElement = document.querySelector('.datePicker')
-            //         datePicker.style.gridAutoRows = 'calc(100% / 6)';
-            //     }
-            // })
+            const allPicker: any = document.querySelector('.allPicker')
+            const pickDate: any = document.querySelector('.pickDate')
+            const currentMonth = nowDate.getMonth()
+            const currentDay = nowDate.getDate()
+            const currentEl = allPicker.children[currentMonth].children[1].children[currentDay]
+            currentEl.classList.add('firstSelected')
+            allPicker.scrollTop = `${currentEl.offsetTop-130}`
+
+            let x = true
+            allPicker.addEventListener('click', (e) => {
+                pickDate.innerText = `${refYear.value+'年'+refMonth.value+'月'+refDay.value+'日'}`
+                if(x===false){return}
+                x=false
+                document.querySelector('.firstSelected').classList.remove('firstSelected')
+            })
+
 
 
         })
         const refYear = ref(undefined)
         const refMonth = ref(undefined)
         const refDay = ref(undefined)
+
         const clickDays = function (y: Number, m: Number, t: Number) {
             if (t === null) return
             refYear.value = y
             refMonth.value = m
             refDay.value = t
+            console.log(y, m, t)
         }
 
 
         const nowDate = new Date()
         const years = nowDate.getFullYear()
-        let changeDatePickersGridAutoRows = ref(0)
-
-
+        const months = nowDate.getMonth()
+        const days = nowDate.getDate()
         const getDays = function (year, month) {
             let arr = []
             const date = new Date(year, month, 0).getDate(); //某月的天数
@@ -98,7 +108,7 @@ export default {
 
 
 
-        return { refYear, refMonth, refDay, clickDays, getDays, years, changeDatePickersGridAutoRows, }
+        return { refYear, refMonth, refDay, clickDays, getDays, years, nowDate,months,days }
     }
 }
 </script>
@@ -124,9 +134,9 @@ export default {
     >.allPicker {
         height: 360px;
         overflow: auto;
-
         >.datePickerWrapper {
 
+            // transform: translateY(-100px);
             // border: 1px solid rgb(238, 1, 1);
             >.dateTextWrapper {
                 display: flex;
@@ -135,7 +145,6 @@ export default {
             }
 
             >.datePicker {
-                // height: 360px;
                 width: 100%;
                 display: grid;
                 grid-template-areas:
@@ -144,17 +153,11 @@ export default {
                     "n15 n16 n17 n18 n19 n20 n21"
                     "n22 n23 n24 n25 n26 n27 n28"
                     "n29 n30 n31 n32 n33 n34 n35";
-                    // "n36 n37 n38 n39 n31 n40 n41";
+                // "n36 n37 n38 n39 n31 n40 n41";
                 grid-auto-rows: 55px;
-                // grid-auto-columns: 1fr;
-
-                &.changeHeight {
-                    grid-auto-rows: calc(100% / 6);
-                }
-
 
                 >.days {
-                    // background: white;
+                    background: white;
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -163,6 +166,11 @@ export default {
 
                     &.selected {
                         // border: 1px solid blue;
+                        background: rgb(238, 10, 36);
+                        color: white;
+                    }
+
+                    &.firstSelected {
                         background: rgb(238, 10, 36);
                         color: white;
                     }
