@@ -51,33 +51,34 @@ export default {
         Button,
     },
     props: {
-        showDate:{type:String}
+        showDate: { type: String }
     },
     setup(props, context) {
         onMounted(() => {
             const allPicker: any = document.querySelector('.allPicker')
             const pickDate: any = document.querySelector('.pickDate')
-            const currentMonth = nowDate.getMonth() //比实际月份小1
-            const currentDay = nowDate.getDate()
-            const currentEl = allPicker.children[currentMonth].children[1].children[currentDay]
+            const trueMonth = nowDate.getMonth() //真实月份，date默认比真实月份小1
+            const trueDay = nowDate.getDate() //真实日
+            const currentEl = allPicker.children[trueMonth].children[1].children[trueDay] //真实今天的日子的那个元素
             currentEl.classList.add('firstSelected')
-            allPicker.scrollTop = `${currentEl.offsetTop - 180}`
+            allPicker.scrollTop = `${currentEl.offsetTop - 120}` // 滚动条定位到真实今天的那个元素的位置
+            const trueMonthEl = allPicker.children[trueMonth].children[1].children //真实月份的具体元素
 
-            console.log(props.showDate)
-
-            const currentMonthEl = allPicker.children[currentMonth].children[1].children
-
-            for(let i = 0; i<currentDay;i++){
-                currentMonthEl[i].classList.add('notSelect')
+            for (let i = 0; i < trueDay; i++) { //为当前真实月份已过去的日子设置为不可选取
+                trueMonthEl[i].classList.add('notSelect')
             }
 
 
 
             let x = true
             allPicker.addEventListener('click', (e) => {
-                if (refYear.value && refMonth.value && refDay.value&&currentMonth<=refMonth.value&&currentDay<=refDay.value) {
-                    pickDate.innerText = `${refYear.value + '年' + refMonth.value + '月' + refDay.value + '日'}`
-                    context.emit( 'update:showDate', `${refYear.value + '年' + refMonth.value + '月' + refDay.value + '日'}` )
+                // console.log(refYear.value, refMonth.value, refDay.value, trueMonth)
+                if (refYear.value && refMonth.value && refDay.value) {
+                    if (trueMonth+1 > refMonth.value) { return }
+                    if (trueMonth+1 <= refMonth.value) {
+                        pickDate.innerText = `${refYear.value + '年' + refMonth.value + '月' + refDay.value + '日'}`
+                        context.emit('update:showDate', `${refYear.value + '年' + refMonth.value + '月' + refDay.value + '日'}`)
+                    }
                 }
                 if (x === false) { return }
                 x = false
@@ -85,9 +86,9 @@ export default {
             })
 
             allPicker.addEventListener('scroll', (e) => {
-                if (allPicker.scrollTop <= currentEl.offsetTop - 180) {
+                if (allPicker.scrollTop <= currentEl.offsetTop - 120) {
                     // 如果滚动到顶部，就将滚动距离设置为 0
-                    allPicker.scrollTop = currentEl.offsetTop - 180;
+                    allPicker.scrollTop = currentEl.offsetTop - 120;
                 }
             })
 
@@ -99,12 +100,12 @@ export default {
 
         const clickDays = function (y: Number, m: Number, t: Number) {
             if (t === null) return
-            if(m<=months+1 && t<days)return
+            if (m <= months + 1 && t < days) return
             refYear.value = y
             refMonth.value = m
             refDay.value = t
             // console.log(y, m, t)
-            
+
         }
 
 
@@ -159,6 +160,9 @@ export default {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                font-size: 18px;
+                font-weight: 600;
+                color: #323233;
             }
 
             >.datePicker {
@@ -178,15 +182,17 @@ export default {
                     align-items: center;
                     justify-content: center;
                     border-radius: 4px;
+
                     &.selected {
                         background: rgb(238, 10, 36);
                         color: white;
                     }
-                    &.notSelect{
-                        color:rgb(203, 201, 204);
+
+                    &.notSelect {
+                        color: rgb(203, 201, 204);
                         background: white;
                     }
-                  
+
 
                     &.firstSelected {
                         background: rgb(238, 10, 36);
@@ -196,7 +202,7 @@ export default {
                     >.day {
                         pointer-events: none;
                         font-size: 16px;
-                        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                        font-family: Verdana, Geneva, Tahoma, sans-serif, sans-serif;
                     }
                 }
 
