@@ -61,7 +61,7 @@ export default {
             const trueDay = nowDate.getDate() //真实日
             const currentEl = allPicker.children[trueMonth].children[1].children[trueDay] //真实今天的日子的那个元素
             currentEl.classList.add('firstSelected')
-            allPicker.scrollTop = `${currentEl.offsetTop - 120}` // 滚动条定位到真实今天的那个元素的位置
+            allPicker.scrollTop = `${currentEl.offsetTop - 130}` // 滚动条定位到真实今天的那个元素的位置
             const trueMonthEl = allPicker.children[trueMonth].children[1].children //真实月份的具体元素
 
             for (let i = 0; i < trueDay; i++) { //为当前真实月份已过去的日子设置为不可选取
@@ -86,9 +86,9 @@ export default {
             })
 
             allPicker.addEventListener('scroll', (e) => {
-                if (allPicker.scrollTop <= currentEl.offsetTop - 120) {
+                if (allPicker.scrollTop <= currentEl.offsetTop - 130) {
                     // 如果滚动到顶部，就将滚动距离设置为 0
-                    allPicker.scrollTop = currentEl.offsetTop - 120;
+                    allPicker.scrollTop = currentEl.offsetTop - 130;
                 }
             })
 
@@ -142,7 +142,6 @@ export default {
 }
 
 .wrapper {
-    margin-left: 200px;
     height: 557px;
     width: 400px;
     border: 1px solid rgb(214, 214, 214);
