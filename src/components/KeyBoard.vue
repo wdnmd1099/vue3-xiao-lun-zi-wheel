@@ -1,7 +1,11 @@
 <template>
-    
     <div>
-        <KeyBoard></KeyBoard>
+        <showCode title="数字键盘" class="sc">
+            <div class="wrapper">
+                <KeyBoard class="keyBoard"></KeyBoard>
+            </div>
+
+        </showCode>
     </div>
 </template>
 
@@ -9,11 +13,26 @@
 import showCode from '../lib/showCode.vue';
 import KeyBoard from '../lib/NumberKeyboard.vue'
 export default {
-    components: { KeyBoard , showCode},
+    components: { KeyBoard, showCode },
     setup() {
         // console.log(SwitchD2)
-        return {  }
+        return {}
     }
 }
 
 </script>
+
+<style lang="scss" scoped>
+.wrapper{
+    height: 100%;
+    // border: 1px solid red;
+    overflow: hidden;
+}
+.sc{
+    position: relative;
+    z-index: 9999;
+}
+.keyBoard {
+    z-index: 0;
+}
+</style>

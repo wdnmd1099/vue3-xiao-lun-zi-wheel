@@ -85,7 +85,6 @@ export default {
                     if (trueMonth + 1 > refMonth.value) { return }
                     if (trueMonth + 1 <= refMonth.value) {
                         pickDate.innerText = `${refYear.value + '年' + refMonth.value + '月' + refDay.value + '日'}`
-                        // context.emit('update:showDate', `${refYear.value + '年' + refMonth.value + '月' + refDay.value + '日'}`)
                     }
                 }
                 if (x === false) { return }
