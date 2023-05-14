@@ -22,15 +22,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.ipt{
-    position: absolute;
-    left: 27%;
-    height: 100px;
-    font-size: 20px;
-    top: 20%;
-}
 .left{
     position: relative;
     margin-left: 200px;
+}
+.ipt{
+    position: absolute;
+    left: 700px;
+    height: 100px;
+    font-size: 20px;
+    top: 20%;
 }
 </style>

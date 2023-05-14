@@ -68,16 +68,24 @@ export default {
                 trueMonthEl[i].classList.add('notSelect')
             }
 
-
+            const btn: any = document.querySelector('.btn')
+            btn.addEventListener('click', () => {
+                if (refYear.value && refMonth.value && refDay.value) {
+                    if (trueMonth + 1 > refMonth.value) { return }
+                    if (trueMonth + 1 <= refMonth.value) {
+                        context.emit('update:showDate', `${refYear.value + '年' + refMonth.value + '月' + refDay.value + '日'}`)
+                    }
+                }
+            })
 
             let x = true
             allPicker.addEventListener('click', (e) => {
                 // console.log(refYear.value, refMonth.value, refDay.value, trueMonth)
                 if (refYear.value && refMonth.value && refDay.value) {
-                    if (trueMonth+1 > refMonth.value) { return }
-                    if (trueMonth+1 <= refMonth.value) {
+                    if (trueMonth + 1 > refMonth.value) { return }
+                    if (trueMonth + 1 <= refMonth.value) {
                         pickDate.innerText = `${refYear.value + '年' + refMonth.value + '月' + refDay.value + '日'}`
-                        context.emit('update:showDate', `${refYear.value + '年' + refMonth.value + '月' + refDay.value + '日'}`)
+                        // context.emit('update:showDate', `${refYear.value + '年' + refMonth.value + '月' + refDay.value + '日'}`)
                     }
                 }
                 if (x === false) { return }
@@ -130,7 +138,7 @@ export default {
 
 
 
-        return { refYear, refMonth, refDay, clickDays, getDays, years, nowDate, months, days }
+        return { refYear, refMonth, refDay, clickDays, getDays, years, nowDate, months, days, }
     }
 }
 </script>
