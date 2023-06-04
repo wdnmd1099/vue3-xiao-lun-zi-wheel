@@ -31,7 +31,7 @@
                             <div :class="{ day: true }">{{ t }}</div>
                         </div>
                     </div>
-                </div>
+                </div> 
 
             </div>
 
@@ -59,17 +59,19 @@ export default {
             const pickDate: any = document.querySelector('.pickDate')
             const trueMonth = nowDate.getMonth() //真实月份，date默认比真实月份小1
             const trueDay = nowDate.getDate() //真实日
-            const currentEl = allPicker.children[trueMonth].children[1].children[trueDay] //真实今天的日子的那个元素
-            currentEl.classList.add('firstSelected')
+            const useLessDivNumber = allPicker.children[trueMonth].children[1].children.length - 1  - Number(allPicker.children[trueMonth].children[1].children[allPicker.children[trueMonth].children[1].children.length - 1].innerText) 
+            // useLessDivNumber 是把日历开始前的空白格子div的数量，要把他们去除才能得到真正的日子
+            const currentEl = allPicker.children[trueMonth].children[1].children[trueDay + useLessDivNumber] //真实今天的日子的那个元素
             allPicker.scrollTop = `${currentEl.offsetTop - 130}` // 滚动条定位到真实今天的那个元素的位置
             const trueMonthEl = allPicker.children[trueMonth].children[1].children //真实月份的具体元素
 
-            for (let i = 0; i < trueDay; i++) { //为当前真实月份已过去的日子设置为不可选取
+            for (let i = 0; i < trueDay + useLessDivNumber; i++) { //为当前真实月份已过去的日子设置为不可选取
                 trueMonthEl[i].classList.add('notSelect')
             }
 
             const btn: any = document.querySelector('.btn')
             btn.addEventListener('click', () => {
+                console.log(refYear.value,refMonth.value,refDay.value)
                 if (refYear.value && refMonth.value && refDay.value) {
                     if (trueMonth + 1 > refMonth.value) { return }
                     if (trueMonth + 1 <= refMonth.value) {
@@ -89,7 +91,6 @@ export default {
                 }
                 if (x === false) { return }
                 x = false
-                document.querySelector('.firstSelected').classList.remove('firstSelected')
             })
 
             allPicker.addEventListener('scroll', (e) => {
@@ -101,9 +102,14 @@ export default {
 
 
         })
-        const refYear = ref(undefined)
-        const refMonth = ref(undefined)
-        const refDay = ref(undefined)
+        const nowDate = new Date()
+        const years = nowDate.getFullYear()
+        const months = nowDate.getMonth()
+        const days = nowDate.getDate()
+
+        const refYear:any = ref(years)
+        const refMonth:any = ref(months+1)
+        const refDay:any = ref(days)
 
         const clickDays = function (y: Number, m: Number, t: Number) {
             if (t === null) return
@@ -115,11 +121,6 @@ export default {
 
         }
 
-
-        const nowDate = new Date()
-        const years = nowDate.getFullYear()
-        const months = nowDate.getMonth()
-        const days = nowDate.getDate()
         const getDays = function (year, month) {
             let arr = []
             const date = new Date(year, month, 0).getDate(); //某月的天数
@@ -197,12 +198,6 @@ export default {
                     &.notSelect {
                         color: rgb(203, 201, 204);
                         background: white;
-                    }
-
-
-                    &.firstSelected {
-                        background: rgb(238, 10, 36);
-                        color: white;
                     }
 
                     >.day {

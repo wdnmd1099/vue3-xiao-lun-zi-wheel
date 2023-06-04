@@ -1,7 +1,6 @@
 <template>
     <div>
         <showCode title="默认日历" :path="calendarMd">
-            <!-- <input type="text" class="ipt" :value="val"> -->
             <div class="ipt">确认后获取日期</div>
             <Calendar v-model:showDate='val' class="left"></Calendar>
         </showCode>
@@ -21,9 +20,8 @@ export default {
             watch(() => [val.value], () => {
                 div.innerHTML = val.value.toString()
             })
-
         })
-        const val = ref('2323')
+        const val = ref('')
         return { val, calendarMd }
     }
 }
